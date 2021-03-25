@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-  <router-view></router-view>
-  </div>
+<div>
+  <h3>bihaobihao</h3>
+</div>
 </template>
 
 <script>
@@ -10,10 +10,16 @@ export default {
     return {
 
     }
+  },
+  methods: {
+
+  },
+  computed: {
+
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
