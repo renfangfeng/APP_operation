@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h3>bihaobihao</h3>
+  <h1>欢迎您的到来</h1>
 </div>
 </template>
 
