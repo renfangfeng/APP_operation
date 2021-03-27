@@ -50,6 +50,7 @@
        </el-form-item>
 
        <el-form-item label="父级分类">
+         <!-- 级联选择器 -->
           <el-cascader clearable  change-on-select v-model="selectedKeys" :options="parentCateList" :props="cascaderProps" @change="parentCateChanged"></el-cascader>
        </el-form-item>
     </el-form>
