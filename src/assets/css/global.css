@@ -31,6 +31,15 @@ body{
 .el-pagination {
     margin-top: 15px;
 }
-/* .el-cascader-menu {
-    height: 300px;
-} */
+.el-header {
+    background-color: #373d41;
+}
+.el-aside {
+    background-color: #333744;
+}
+.el-main {
+    background-color: #eaedf1;
+}
+.ql-editor {
+    min-height: 300px;
+}

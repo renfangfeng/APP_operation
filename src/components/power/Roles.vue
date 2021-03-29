@@ -74,13 +74,9 @@
         <el-table-column label="操作" width="300px">
           <template slot-scope="scope">
             <!-- 编辑按钮 -->
-            <el-button type="primay" icon="el-icon-edit" size="mini"
-              >编辑</el-button
-            >
+            <el-button type="primay" icon="el-icon-edit" size="mini">编辑</el-button>
             <!-- 删除按钮 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini"
-              >删除</el-button
-            >
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeRolesById(scope.row.id)">删除</el-button>
             <!-- 分配权限 -->
             <el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetRightDialog(scope.row)" >分配权限</el-button>
           </template>
@@ -183,7 +179,26 @@ export default {
       this.$message.success('分配权限成功')
       this.getRolesList()
       this.setRightDialogVisible = false
+    },
+    // 删除按钮
+    async removeRolesById (id) {
+      const confirmResult = await this.$confirm('此操作将永久删除该用户，是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+      ).catch(err => err)
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除')
+      }
+      const { data: res } = await this.$http.delete('roles/' + id)
+      if (res.meta.status !== 200) {
+        return this.$message.error('删除用户失败')
+      }
+      this.$message.success('用户删除成功')
+      this.getRolesList()
     }
+
   },
   computed: {}
 }

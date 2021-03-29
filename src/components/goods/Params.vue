@@ -16,7 +16,7 @@
         <el-col>
           <span>选择商品分类:</span>
           <!-- 选择商品分类的级联选择框 -->
-          <el-cascader  v-model="selectedCateKeys" :options="catelist" :props="cateProps" @change="handleChange"></el-cascader>
+          <el-cascader  clearable v-model="selectedCateKeys" :options="catelist" :props="cateProps" @change="handleChange"></el-cascader>
         </el-col>
       </el-row>
        <!-- tab页签区域 -->
@@ -32,7 +32,7 @@
                    <!-- 循环渲染TAG标签 -->
                    <el-tag v-for="(item,i) in scope.row.attr_vals" :key="i" closable @close="removeTag(i,scope.row)">{{item}}</el-tag>
                    <!-- 输入文本框 -->
-                   <el-input class="input-new-tag" v-if="scope.row.inputVisible" v-model="scope.row.inputValue" ref="saveTagInput" size="small"  @keyup.enter.native="handleInputConfirm(scope.row)"  @blur="handleInputConfirm(scope.row)">
+                   <el-input  class="input-new-tag" v-if="scope.row.inputVisible" v-model="scope.row.inputValue" ref="saveTagInput" size="small"  @keyup.enter.native="handleInputConfirm(scope.row)"  @blur="handleInputConfirm(scope.row)">
                    </el-input>
                    <!-- 添加按钮 -->
                    <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
@@ -194,6 +194,12 @@ export default {
     },
     // 获取参数的列表数据
     async getParamsData () {
+      // 判断输入文本框是否有值 如果没值就把数据列表清空
+      if (!this.cateId) {
+        this.manyTableData = []
+        this.onlyTabeData = []
+        return
+      }
       if (this.selectedCateKeys.length !== 3) {
         this.selectedCateKeys = []
         return
@@ -300,7 +306,7 @@ export default {
         this.$refs.saveTagInput.focus()
       })
     },
-    // 删除添加的文本标签失败
+    // 删除添加的文本标签
     async removeTag (i, row) {
       const confirmResult = await this.$confirm('此操作将永久删除用户，是否继续？', '提示', {
         confirmButtonText: '确定',
