@@ -47,7 +47,7 @@
               <!-- 复选框组 -->
               <el-form-item :label="item.attr_name" v-for="item in manyTableData" :key="item.attr_id">
                       <el-checkbox-group v-model="item.attr_vals">
-                          <el-checkbox :label="cb" v-for="(cb,i) in item.attr_vals" :key="i" border></el-checkbox>
+                          <el-checkbox :label="cb" v-for="(cb,i) in item.attr_vals1" :key="i" border></el-checkbox>
                       </el-checkbox-group>
                </el-form-item>
             </el-tab-pane>
@@ -175,6 +175,7 @@ export default {
         }
         res.data.forEach(item => {
           item.attr_vals = item.attr_vals.length === 0 ? [] : item.attr_vals.split(' ')
+          item.attr_vals1 = [...item.attr_vals]
         })
         this.manyTableData = res.data
       } else if (this.activeIndex === '2') {
